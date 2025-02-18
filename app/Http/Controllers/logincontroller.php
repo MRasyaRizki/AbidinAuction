@@ -18,34 +18,25 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required'
-        ]);
-
-        // Cek Masyarakat
-        $masyarakat = Masyarakat::where('username', $request->username)->first();
-        if ($masyarakat && $request->password === $masyarakat->password) {
-            // Simpan session sebagai masyarakat
-            session(['user' => $masyarakat, 'role' => 'masyarakat']);
-            return redirect()->route('home');
-        }
-
-        // Cek Petugas
-        $petugas = Petugas::where('username', $request->username)->first();
-        if ($petugas && $request->password === $petugas->password) {
-            // Simpan session dengan role sesuai level
-            $role = $petugas->id_level == 1 ? 'petugas' : 'admin';
-            session(['user' => $petugas, 'role' => $role]);
-            return redirect()->route('home');
-        }
-
+        $credentials = [
+            'username' => $request->username,
+            'password' => $request->password,
+        ];
+        if (Auth::guard('masyarakat')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('dashboard');;
+        } 
         return back()->withErrors(['login' => 'Username atau password salah.']);
     }
+    
+    
 
-    public function logout()
-    {
-        session()->flush();
-        return redirect()->route('login');
-    }
+public function logout(Request $request)
+{
+    Auth::guard('masyarakat')->logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect()->route('login');
+}
+
 }
