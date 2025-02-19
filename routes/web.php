@@ -2,7 +2,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\DashboardController; // Menambahkan controller untuk dashboard
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardAdminController;
+use App\Http\Controllers\DashboardPetugasController;
 
 // Route Login
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -14,4 +16,6 @@ Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('r
 Route::post('register', [RegisterController::class, 'register']);
 
 // Route Dashboard
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');  // Menambahkan route dashboard
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('dashboardAdmin', [DashboardAdminController::class, 'index'])->name('dashboardAdmin');
+Route::get('dashboardPetugas', [DashboardPetugasController::class, 'index'])->name('dashboardPetugas');
