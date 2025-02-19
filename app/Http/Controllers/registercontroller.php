@@ -30,6 +30,8 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        return 'sukses buat akun';
+
         return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
 }
