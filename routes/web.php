@@ -19,3 +19,8 @@ Route::post('register', [RegisterController::class, 'register']);
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('dashboardAdmin', [DashboardAdminController::class, 'index'])->name('dashboardAdmin');
 Route::get('dashboardPetugas', [DashboardPetugasController::class, 'index'])->name('dashboardPetugas');
+
+//route admin
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('barang', App\Http\Controllers\Admin\BarangController::class);
+});
