@@ -1,22 +1,26 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\logincontroller;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\DashboardController; // Menambahkan controller untuk dashboard
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardAdminController;
+use App\Http\Controllers\DashboardPetugasController;
 
 // Route Landing Page
 // Route::get('/', function () {
-//     return view('welcome'); 
+//     return view('welcome');
 // })->name('welcome');
 
 // Route Login
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login'])->name('signin');
-Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('login', [logincontroller::class, 'showLoginForm'])->name('login');
+Route::post('login', [logincontroller::class, 'login'])->name('signin');
+Route::get('logout', [logincontroller::class, 'logout'])->name('logout');
 
 // Route Register
 Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('register');
 Route::post('register', [RegisterController::class, 'register']);
 
 // Route Dashboard
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');  // Menambahkan route dashboard
+Route::get('/dashboard/masyarakat', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard/admin', [DashboardAdminController::class, 'index'])->name('dashboardadministrator');
+Route::get('/dashboard/petugas', [DashboardPetugasController::class, 'index'])->name('dashboardpetugas');
