@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            background: url('assets/background.jpg') no-repeat center center fixed;
+            background: url('AssetsSendiri/background.jpg') no-repeat center center fixed;
             background-size: cover;
         }
     </style>
@@ -16,7 +16,7 @@
     <div class="w-full max-w-2xl p-6 bg-white rounded-lg shadow-md flex">
         <!-- Logo Brand -->
         <div class="flex items-center justify-center w-1/2 p-6 rounded-l-lg">
-            <img src="assets/logo.jpg" alt="Brand Logo" class="w-37 h-37">
+            <img src="AssetsSendiri/logo.jpg" alt="Brand Logo" class="w-37 h-37">
         </div>
         
         <!-- Login Form -->
