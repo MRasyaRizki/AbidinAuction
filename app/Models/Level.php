@@ -10,7 +10,7 @@ class Level extends Model
     use HasFactory;
 
     protected $table = 'tb_level';
-    protected $primaryKey = 'id_level';
+    protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = ['level'];
 
