@@ -12,7 +12,7 @@ class Petugas extends Authenticatable
     use HasFactory;
 
     protected $table = 'tb_petugas';
-    protected $primaryKey = 'id_petugas';
+    protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = ['nama_petugas', 'username', 'password', 'id_level'];
 
@@ -21,7 +21,7 @@ class Petugas extends Authenticatable
         return $this->hasMany(Lelang::class, 'id_petugas');
     }
 
-    public function level()
+    public function Level()
     {
         return $this->belongsTo(Level::class, 'id_level');
     }

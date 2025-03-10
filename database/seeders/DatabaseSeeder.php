@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
 
         Petugas::factory(2)->create();
 
-        Masyarakat::factory(5)->create();
+        Masyarakat::factory(2)->create();
 
-        Barang::factory(10)->create();
+        //Barang::factory(10)->create();
     }
 }

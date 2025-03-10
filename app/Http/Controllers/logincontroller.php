@@ -20,40 +20,47 @@ class LoginController extends Controller
             'username' => $request->username,
             'password' => $request->password,
         ];
+        $role = $request->role;
 
-        // Coba login sebagai masyarakat
-        if (Auth::guard('masyarakat')->attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->route('dashboard');
-        }
+        Auth::guard('masyarakat')->logout();
+        Auth::guard('petugas')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-        // Coba login sebagai petugas
-        if (Auth::guard('petugas')->attempt($credentials)) {
-            $request->session()->regenerate();
-            $user = Auth::guard('petugas')->user();
-
-            // Redirect berdasarkan id_level
-            if ($user->id_level == 1) {
-                return redirect()->route('dashboardAdmin');
-            } elseif ($user->id_level == 2) {
-                return redirect()->route('dashboardPetugas');
+        if ($role == 'Masyarakat') {
+            if (Auth::guard('masyarakat')->attempt($credentials)) {
+                $request->session()->regenerate();
+                return redirect()->intended('dashboard'); // INI DEFAULT UNTUK MASYRAKAT LE
+            }
+        } else {
+            if (Auth::guard('petugas')->attempt($credentials)) {
+                $request->session()->regenerate();
+                return redirect()->intended('dashboardAdmin'); // TINGGAL UBAH ROUTE KALO ADMIN/PETUGAS MAU KE ARAH MANA
             }
         }
 
-        // Jika login gagal
         return back()->withErrors(['login' => 'Username atau password salah.']);
     }
 
+
+
     public function logout(Request $request)
     {
-        if (Auth::guard('masyarakat')->check()) {
-            Auth::guard('masyarakat')->logout();
-        } elseif (Auth::guard('petugas')->check()) {
-            Auth::guard('petugas')->logout();
-        }
+        Auth::guard('masyarakat')->logout();
+        Auth::guard('petugas')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect()->route('login');
     }
+
+    //     protected function authenticated(Request $request, $user)
+    // {
+    //     if ($user->role === 'admin') {
+    //         return redirect()->route('admin.dashboard');
+    //     }
+    //     return redirect()->route('dashboard');
+    // }
+
 }

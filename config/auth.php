@@ -18,7 +18,7 @@ return [
         ],
         'petugas' => [
             'driver' => 'session',
-            'provider' => 'petugas',
+            'provider' => 'Petugas',
         ],
     ],
 
@@ -31,7 +31,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Masyarakat::class,
         ],
-        'petugas' => [
+        'Petugas' => [
             'driver' => 'eloquent',
             'model' => App\Models\Petugas::class,
         ],

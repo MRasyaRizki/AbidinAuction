@@ -10,7 +10,7 @@ class Lelang extends Model
     use HasFactory;
 
     protected $table = 'tb_lelang';
-    protected $primaryKey = 'id_lelang';
+    protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = ['id_barang', 'tgl_lelang', 'harga_akhir', 'id_user', 'id_petugas', 'status'];
 
@@ -27,5 +27,10 @@ class Lelang extends Model
     public function petugas()
     {
         return $this->belongsTo(Petugas::class, 'id_petugas');
+    }
+
+    public function penawaran()
+    {
+        return $this->hasMany(HistoryLelang::class, 'id_lelang');
     }
 }
