@@ -100,18 +100,28 @@
 </head>
 
 <body>
-    <div class="navbar">
+<div class="navbar">
         <img src="{{ asset('assets/logo2.png') }}" alt="logo">
         <div class="nav-links">
-            <a href="#">Beranda</a>
-            <a href="#">Kategori</a>
-            <a href="#">Akun Saya</a>
-            <a href="{{ route('logout') }}">Logout</a>
+            <a href="/dashboardAdmin">Beranda</a>
+            <a href="/kelolaBarang">Barang</a>
+            <a href="/managePetugas">Petugas</a>
+            
+            <div class="dropdown">
+                <button class="btn btn-warning dropdown-toggle" type="button" id="akunDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Akun Saya
+                </button>
+                <div class="dropdown-menu" aria-labelledby="akunDropdown">
+                    <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+                </div>
+            </div>
+
             <div class="search-bar">
                 <input type="text" placeholder="Cari barang...">
             </div>
         </div>
     </div>
+
     <div class="container">
         <h1 class="welcome">Selamat Datang {{ Auth::guard('petugas')->user()->username }}</h1>
         <h2>Barang Lelang</h2>
