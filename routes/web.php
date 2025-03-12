@@ -46,7 +46,7 @@ Route::post('/TutuplelangBarang/{barang}', [LelangController::class, 'close'])->
 Route::post('/lelangBarang/{barang}', [LelangController::class, 'make'])->name('lelangBarang');
 Route::post('/bid/{lelang}', [BidinController::class, 'bid'])->name('bid');
 
-
+//COMMENT DAN LIKE
 Route::get('/laporan-lelang', [LaporanController::class, 'generateLaporan']);
 
 Route::get('/managePetugas', [PetugasController::class, 'manage'])->name('managePetugas');
