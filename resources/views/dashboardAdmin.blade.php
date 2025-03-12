@@ -100,19 +100,22 @@
 </head>
 
 <body>
-<div class="navbar">
+    <div class="navbar">
         <img src="{{ asset('assets/logo2.png') }}" alt="logo">
         <div class="nav-links">
-            <a href="/dashboardAdmin">Beranda</a>
-            <a href="/kelolaBarang">Barang</a>
-            <a href="/managePetugas">Petugas</a>
-            
+            <a href="{{ route('dashboardAdmin') }}">Beranda</a>
+            <a href="{{ route('kelolaBarang') }}">Barang</a>
+            <a href="{{ route('managePetugas') }}">Petugas</a>
+
             <div class="dropdown">
                 <button class="btn btn-warning dropdown-toggle" type="button" id="akunDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Akun Saya
                 </button>
                 <div class="dropdown-menu" aria-labelledby="akunDropdown">
-                    <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="dropdown-item">Logout</button>
+                    </form>
                 </div>
             </div>
 
@@ -123,14 +126,14 @@
     </div>
 
     <div class="container">
-        <h1 class="welcome">Selamat Datang {{ Auth::guard('petugas')->user()->username }}</h1>
+        <h1 class="welcome">Selamat Datang, {{ Auth::guard('petugas')->user()->username }}</h1>
         <h2>Barang Lelang</h2>
 
         <!-- Daftar Barang -->
         <div class="product-list">
             @foreach ($barang as $item)
             <div class="product-card">
-                <img src="{{ asset('storage/' . $item->foto) }}"
+            <img src="{{ Storage::url($item->foto) }}"
                      alt="{{ $item->nama_barang }}"
                      style="width: 150px; height: 150px; object-fit: cover;">
                 <h3>{{ $item->nama_barang }}</h3>
@@ -138,7 +141,6 @@
                 <p>Harga Awal: Rp {{ number_format($item->harga_awal, 0, ',', '.') }}</p>
                 <button class="btn-bid">Bid Sekarang</button>
             </div>
-
             @endforeach
         </div>
     </div>
@@ -147,8 +149,7 @@
     <button type="button" class="btn-add" data-toggle="modal" data-target="#addBarangModal">+</button>
 
     <!-- Modal Form Tambah Barang -->
-    <div class="modal fade" id="addBarangModal" tabindex="-1" role="dialog" aria-labelledby="addBarangModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addBarangModal" tabindex="-1" role="dialog" aria-labelledby="addBarangModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -177,8 +178,8 @@
                             <textarea class="form-control" name="deskripsi_barang" id="deskripsi_barang" rows="3" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="formFile" class="form-label">Gambar Barang</label>
-                            <input class="form-control" type="file" id="formFile" name="foto">
+                            <label for="foto" class="form-label">Gambar Barang</label>
+                            <input class="form-control" type="file" id="foto" name="foto">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -191,7 +192,7 @@
     </div>
 
     <!-- Sertakan jQuery dan Bootstrap JS untuk modal -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
